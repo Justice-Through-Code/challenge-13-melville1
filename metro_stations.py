@@ -40,6 +40,17 @@ class MetroStation:
 #       This will indicate which subway lines stop at the station (for example ['A', 'C'])
 #   - Override the show_info() method from MetroStation to display which subway lines stop there, in addition to the station_name and location
 
+class SubwayStation(MetroStation):
+    def __init__(self,station_name, location, lines):
+        super().__init__(station_name, location)
+        self.lines = lines
+
+    def show_info(self):
+        open_info = 'open' if self.is_open else 'closed'
+        print(f'{self.station_name} station is located at {self.location}. It is currently {open_info}. And stop at: {self.lines}')
+
+    
+
 
 
 # 1.2 TODO: Using your `SubwayStation` class, instantiate a subway station with the info below. 
@@ -50,8 +61,8 @@ class MetroStation:
 # location: '14th street and 7th avenue'
 # lines: ['1', '2', '3', 'L']
 
-
-
+subway1 = SubwayStation('14th street','14th street and 7th avenue',['1', '2', '3', 'L'])
+subway1.show_info()
 # 2.1 TODO: Using the `MetroStation` class below as the parent, make a child class called `BusStation`
 # `BusStation` should:
 # - Have an additional attribute called 'routes' that is user-defined as a list during initialization. 
@@ -62,6 +73,20 @@ class MetroStation:
 #   ^ both should take in a route to either add or remove from the list of routes, respectively.
 # - Override the show_info() method to display the bus routes in addition to the station name and location
 #   (NOTE: This means that the code in `MetroStation.show_info()` should still run in the `SubwayStation` code)      
+class BusStation(MetroStation):
+    def __init__(self, station_name, location, routes):
+        super().__init__(station_name, location)
+        self.routes = routes
+
+    def add_route(self,route):
+        self.routes.append(route)
+    
+    def remove_route(self,route):
+        self.routes.remove(route)
+    
+    def show_info(self):
+        open_info = 'open' if self.is_open else 'closed'
+        print(f'{self.station_name} station is located at {self.location}. It is currently {open_info}. And bus routes are: {self.routes}')
 
 
 # 3.0 TODO: Using your `BusStation` class:
@@ -73,3 +98,7 @@ class MetroStation:
 # station_name: 'NYC Megabus Stop'
 # location: '34th street and 12th avenue'
 # routes: ['Boston', 'DC', 'Philly']
+bus1 = BusStation('NYC Megabus Stop','34th street and 12th avenue',['Boston', 'DC', 'Philly'])
+bus1.show_info()
+bus1.close_station()
+bus1.show_info()
